@@ -1,0 +1,48 @@
+{# vim:se syntax=html.tornadotmpl: #}
+{% autoescape None %}
+
+-module(message_code).
+
+-export([encode/1, decode/1, 
+         encode_msg_bin/1, merge_bin/2,
+         decode_msg_bin/2, split_bin/1]).
+
+-include_lib("eunit/include/eunit.hrl").
+
+{% set protobuffs = root.protobuffs %}
+
+{% for hrl in sorted(set(i.module for i in protobuffs)) %}
+-include_lib("network_proto/include/{{ hrl }}_pb.hrl").
+{% end %}
+
+-define(INT_PROTO_ID,    16/unsigned-big-integer).
+
+{% for i in protobuffs %}
+encode(#{{ i.message.lower() }}{}=Msg) -> {ok, <<{{i.id}}:?INT_PROTO_ID, (erlang:iolist_to_binary({{ i.module }}_pb:encode_{{ i.message.lower() }}(Msg)))/binary>>};
+{% end %}
+encode(_) -> error.
+
+{% for i in protobuffs %}
+decode(<<{{ i.id }}:?INT_PROTO_ID, B/binary>>) -> {ok, {{ i.module }}_pb:decode_{{ i.message.lower() }}(B)};
+{% end %}
+decode(_) -> error.
+
+{% for i in protobuffs %}
+encode_msg_bin(#{{ i.message.lower() }}{}=Msg) -> {ok, {{i.is_crypto}}, {{i.is_compress}}, erlang:iolist_to_binary({{ i.module }}_pb:encode_{{ i.message.lower() }}(Msg))};
+{% end %}
+encode_msg_bin(_) -> error.
+
+{% for i in protobuffs %}
+merge_bin(#{{ i.message.lower() }}{}=_Msg, MsgBin) -> {ok, <<{{i.id}}:?INT_PROTO_ID, MsgBin/binary>>};
+{% end %}
+merge_bin(_, _) -> error.
+
+{% for i in protobuffs %}
+decode_msg_bin({{ i.id }}, MsgBin) -> {ok, {{ i.module }}_pb:decode_{{ i.message.lower()}}(MsgBin)};
+{% end %}
+decode_msg_bin(_, _) -> error.
+
+{% for i in protobuffs %}
+split_bin(<<{{ i.id }}:?INT_PROTO_ID, MsgBin/binary>>) -> {ok, {{ i.id }}, {{i.is_crypto}}, {{i.is_compress}}, MsgBin};
+{% end %}
+split_bin(_) -> error.

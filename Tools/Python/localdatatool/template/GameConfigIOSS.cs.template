@@ -1,0 +1,174 @@
+{# vim:se syntax=html.tornadotmpl: #}
+{% autoescape None %}
+using System.Collections.Generic;
+
+{% for k, unit in sorted(xml_types_recorder.items()) %}
+{% set struct = xml_types_struct_name(k) %}
+public class {{ struct }} {
+	{% for name, t in sorted(unit.items()) %}
+	public {{ declare(t) }} {{ name }};
+	{% end %}
+	
+	public {{ struct }}() { }
+	
+	public {{ struct }}({{ ", ".join("{} _{}".format(declare(t), name) for name, t in sorted(unit.items())) }}) {
+		{% for name in unit %}
+		{{ name }} = _{{ name }};
+		{% end %}
+	}
+}
+{% end %}
+
+{% for k, unit in sorted(types.items()) %}
+{% set struct = "_unit_of_" + k if not k in ["PlotVO", "SkillPlot"] else "_unit_of_plot" %}
+{% if not k == "SkillPlot" %}
+public class {{ struct }} {
+	{% for name, t in sorted(unit.items()) %}
+	public {{ declare(t) }} {{ name }};
+	{% end %}
+	
+	public {{ struct }}() { }
+	
+	public {{ struct }}({{ ", ".join("{} _{}".format(declare(t), name) for name, t in sorted(unit.items())) }}) {
+		{% for name in unit %}
+		{{ name }} = _{{ name }};
+		{% end %}
+	}
+}
+{% end %}
+{% end %}
+
+public class GameConfig {
+	
+	{% for _k, _lst in str_list.items() %}
+	public static string[] {{ _k }} = { {{ ",".join(json_encode(i) for i in _lst) }} };
+	{% end %}
+	{% for _k, _lst in int_list.items() %}
+	public static int[] {{ _k }} = { {{ ",".join(json_encode(i) for i in _lst) }} };
+	{% end %}
+	{% for _k, _lst in sorted(str_to_str.items()) %}
+	public static Dictionary<string, string> {{ _k }} = new Dictionary<string, string>() { {{ ",".join(i for i in _lst) }} };
+	{% end %}
+	
+	private static Dictionary<int, string[]> _skill_assets = null;
+	private static Dictionary<int, string[]> _role_assets = null;
+	
+	{% for k, t in types.items() %}
+	{% set struct = "_unit_of_" + k if not k in ["PlotVO", "SkillPlot"] else "_unit_of_plot" %}
+	{% set key = idx_key_map.get(k, "id") %}
+	{% if not for_lua_struct_list.get(k) %}
+	private static Dictionary<{{ declare(t[key]) }}, {{ struct }}> _{{ k }} = null;
+	{% else %}
+	public static Dictionary<object, {{ struct }}> {{ k }} = new Dictionary<object, {{ struct }}>();
+	{% end %}
+	{% end %}
+	
+	{% for k, t in types.items() %}
+	{% if not for_lua_struct_list.get(k) %}
+	{% set struct = "_unit_of_" + k if not k in ["PlotVO", "SkillPlot"] else "_unit_of_plot" %}
+	{% set key = idx_key_map.get(k, "id") %}
+	public static Dictionary<{{ declare(t[key]) }}, {{ struct }}> {{ k }}
+	{
+		get
+		{
+			if (_{{ k }} == null)
+			{
+				init_{{ k }}();
+			}
+			return _{{ k }};
+		}
+	}
+	{% end %}
+	{% end %}
+	
+	public static Dictionary<int, string[]> skill_assets
+	{
+		get
+		{
+			if (_skill_assets == null)
+			{
+				if (GameConfigLogFun != null) GameConfigLogFun("config init : _skill_assets	mount : {{ len(skill_assets) }}");
+				_skill_assets = new Dictionary<int, string[]>({{ int(len(skill_assets) * 1.2) }});
+				{% for skill_id, lst in skill_assets.items() %}
+				{% set entry = "_skill_assets.Add({}, new string[]{{ {} }});".format(skill_id, ",".join(json_encode(i) for i in lst)) %}
+				{{ entry }}
+				{% end %}
+			}
+			return _skill_assets;
+		}
+	}
+	
+	public static Dictionary<int, string[]> role_assets
+	{
+		get
+		{
+			if (_role_assets == null)
+			{
+				if (GameConfigLogFun != null) GameConfigLogFun("config init : _role_assets	mount : {{ len(role_assets) }}");
+				_role_assets = new Dictionary<int, string[]>({{ int(len(role_assets) * 1.2) }});
+				{% for skill_id, lst in role_assets.items() %}
+				{% set entry = "_role_assets.Add({}, new string[]{{ {} }});".format(skill_id, ",".join(json_encode(i) for i in lst)) %}
+				{{ entry }}
+				{% end %}
+			}
+			return _role_assets;
+		}
+	}
+	
+	{% import math %}
+	{% set maximum_line = 400 %}
+	{% set key_to_entrys = {} %}
+	
+	{% for k, lst in struct_list.items() %}
+	{% if not for_lua_struct_list.get(k) %}
+	{% set struct = "_unit_of_" + k if not k in ["PlotVO", "SkillPlot"] else "_unit_of_plot" %}
+	{% set key = idx_key_map.get(k, "id") %}
+	private static void init_{{ k }}()
+	{
+		if (GameConfigLogFun != null) GameConfigLogFun("config init : {{ k }}	mount : {{ len(lst) }}");
+		_{{ k }} = new Dictionary<{{ declare(types[k][key]) }}, {{ struct }}>({{ int(len(lst) * 1.2) }});
+		{% set all_entry = [] %}
+		{% for unit in lst %}
+		{% set entry = "{}.Add({}, new {}({}));".format("_" + k, json_encode(unit[key]), struct, ", ".join(define(k, kk, v) for kk, v in sorted(unit.items()))) %}
+		{% set all_entry.append(entry) %}
+		{% end %}
+		
+		{% if len(lst) <= maximum_line %}
+		{% for entry in all_entry %}
+		{{ entry }}
+		{% end %}
+		{% else %}
+		{% for count in range(0, math.ceil(len(all_entry) / maximum_line)) %}
+		init_{{ k }}_{{ count }}();
+		{% end %}
+		{% set key_to_entrys[k] = all_entry %}
+		{% end %}
+	}
+	{% end %}
+	{% end %}
+	
+	{% for k, all_entry in sorted(key_to_entrys.items()) %}
+	{% for count in range(0, math.ceil(len(all_entry) / maximum_line)) %}
+	static void init_{{ k }}_{{ count }}()
+	{
+		{% for index in range(0, maximum_line) %}
+		{% if count * maximum_line + index < len(all_entry) %}
+		{{ all_entry[count * maximum_line + index] }}
+		{% else %}
+		{% break %}
+		{% end %}
+		{% end %}
+	}
+	{% end %}
+	{% end %}
+	
+	public delegate void GameConfigLog(string log);
+    public static GameConfigLog GameConfigLogFun;
+	static GameConfig() {
+	}
+	
+	{#
+	#}
+}
+
+

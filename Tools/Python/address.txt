@@ -1,0 +1,37 @@
+配置地址注意:ResPath,ProtoExportPath 基本不用修改，只需要修改后面的具体的路径就可以了
+
+--------------------------------以下是导表工具需要配置地址-----------------------------
+项目资源地址----必须配置
+ResPath = "E:\Wrok\Client\IGame\Assets\Resources"
+
+客户端Excel表的路径位置---必须配置
+CS_Excel_path ="F:\HeroProject\Tools\Excel"
+
+客户端gameConfig拷贝目标地址（导表完成之后需要拷贝到具体项目的目标地址--填空表示不需要拷贝""）
+CS_GameConfig_CopyPath = "F:\HeroProject\Output"
+
+客户端lua拷贝目标地址---（填空表示不需要拷贝""）
+CS_LuaConfig_CopyPath = "F:\HeroProject\Output"
+
+服务端gameconfig拷贝目标地址-----（填空表示不需要拷贝""）
+SC_GameConfig_CopyPath = "F:\HeroProject\Output"
+
+
+--------------------------------以下是Probuffs协议需要配置地址-----------------------------
+协议目录总地址---必须配置
+TotalPath = "E:\Wrok\Proto_export"
+
+ptotobuf目录地址(里面都是.proto文件后端上传的文件) ----必须配置
+ProtoPath = "E:\Wrok\Proto_export\proto"
+
+xls协议表地址---必须配置
+ProXlsPath = "E:\Wrok\Proto_export\xls"
+
+protobuf导出地址（也是拷贝地址）----必须配置
+ProtoExportPath = "E:\Wrok\Proto_export\protobuftools\Protobuf"
+
+客户端lua导出地址----（填空表示不拷贝）
+CS_ProtoBufLua_CopyPath = "E:\Wrok\excel"
+
+服务端协议拷贝地址---（填空表示不拷贝）
+SC_ProtoBufConfig_CopyPath = "E:\Wrok\excel"

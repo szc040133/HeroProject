@@ -1,0 +1,9 @@
+{
+    "protobuffs": {
+        "id": "int",
+        "is_compress": "int",
+        "is_crypto": "int",
+        "message": "str",
+        "module": "str"
+    }
+}

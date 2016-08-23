@@ -1,0 +1,17 @@
+{# vim:se syntax=html.tornadotmpl: #}
+{% autoescape None %}
+using System.Collections.Generic;
+
+public class LuaScripts
+{
+	public static Dictionary<string, string> Scripts;
+	static LuaScripts()
+	{
+		Scripts = new Dictionary<string, string>({{ int(len(file_list) * 1.2) }});
+		{% for k, text in sorted(file_list.items()) %}
+		Scripts.Add({{ k }},{{ text }});
+		{% end %}
+	}
+}
+{#
+#}

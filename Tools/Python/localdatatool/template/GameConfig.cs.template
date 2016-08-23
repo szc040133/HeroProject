@@ -1,0 +1,101 @@
+{# vim:se syntax=html.tornadotmpl: #}
+{% autoescape None %}
+using System.Collections.Generic;
+
+{% for k, unit in sorted(types.items()) %}
+{% set struct = "_unit_of_" + k%}
+{% if not k == "SkillPlot" %}
+public class {{ struct }} {
+	{% for name, t in sorted(unit.items()) %}
+	public {{ declare(t) }} {{ name }};
+	{% end %}
+	
+	public {{ struct }}() { }
+	
+	public {{ struct }}({{ ", ".join("{} _{}".format(declare(t), name) for name, t in sorted(unit.items())) }}) {
+		{% for name in unit %}
+		{{ name }} = _{{ name }};
+		{% end %}
+	}
+}
+{% end %}
+{% end %}
+
+public class GameConfig {
+	
+	{% for k, t in types.items() %}
+	{% set struct = "_unit_of_" + k%}
+	private static Dictionary<{{ declare(t["id"]) }}, {{ struct }}> _{{ k }} = null;
+	{% end %}
+	
+	{% for k, t in types.items() %}
+	{% set struct = "_unit_of_" + k%}
+	
+	public static Dictionary<{{ declare(t["id"]) }}, {{ struct }}> {{ k }}
+	{
+		get
+		{
+			if (_{{ k }} == null)
+			{
+				init_{{ k }}();
+			}
+			return _{{ k }};
+		}
+	}
+	{% end %}
+	
+	
+	{% import math %}
+	{% set maximum_line = 400 %}
+	{% set key_to_entrys = {} %}
+	
+	{% for k, lst in struct_list.items() %}
+	{% set struct = "_unit_of_" + k%}
+	private static void init_{{ k }}()
+	{
+		if (GameConfigLogFun != null) GameConfigLogFun("config init : {{ k }}	mount : {{ len(lst) }}");
+		_{{ k }} = new Dictionary<{{ declare(types[k]["id"]) }}, {{ struct }}>({{ int(len(lst) * 1.2) }});
+		{% set all_entry = [] %}
+		{% for unit in lst %}
+		{% set entry = "{}.Add({}, new {}({}));".format("_" + k, json_encode(unit["id"]), struct, ", ".join(define(k, kk, v) for kk, v in sorted(unit.items()))) %}
+		{% set all_entry.append(entry) %}
+		{% end %}
+		
+		{% if len(lst) <= maximum_line %}
+		{% for entry in all_entry %}
+		{{ entry }}
+		{% end %}
+		{% else %}
+		{% for count in range(0, math.ceil(len(all_entry) / maximum_line)) %}
+		init_{{ k }}_{{ count }}();
+		{% end %}
+		{% set key_to_entrys[k] = all_entry %}
+		{% end %}
+	}
+	{% end %}
+	
+	{% for k, all_entry in sorted(key_to_entrys.items()) %}
+	{% for count in range(0, math.ceil(len(all_entry) / maximum_line)) %}
+	static void init_{{ k }}_{{ count }}()
+	{
+		{% for index in range(0, maximum_line) %}
+		{% if count * maximum_line + index < len(all_entry) %}
+		{{ all_entry[count * maximum_line + index] }}
+		{% else %}
+		{% break %}
+		{% end %}
+		{% end %}
+	}
+	{% end %}
+	{% end %}
+	
+	public delegate void GameConfigLog(string log);
+    public static GameConfigLog GameConfigLogFun;
+	static GameConfig() {
+	}
+	
+	{#
+	#}
+}
+
+

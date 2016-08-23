@@ -1,0 +1,16 @@
+{# vim:se syntax=html.tornadotmpl: #}
+{% autoescape None %}
+
+
+{% for k, lst in sorted(struct_list.items()) %}
+{{ k }} = {
+	{% for unit in lst %}
+	{% set init = ",".join("{}={}".format(kk, define(k, kk, v)) for kk, v in sorted(unit.items())) %}
+	[{{ json_encode(unit["id"]) }}] = {{{ init }}},
+	{% end %}
+},
+{% end %}
+
+
+{#
+#}

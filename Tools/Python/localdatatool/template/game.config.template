@@ -1,0 +1,11 @@
+{# vim:se syntax=html.tornadotmpl: #}
+{% autoescape None %}
+
+{% for struct, item in sorted(for_struct_list.items()) %}
+{% for x in struct_list[struct] %}
+{ {{ item["output_name"] }}, {{ item["pattern"].format(*([",".join([define(struct, k, x[k]) for k in i]) for i in item["params_list"]])) }} }.
+{% end %}
+{% end %}
+
+{#
+#}

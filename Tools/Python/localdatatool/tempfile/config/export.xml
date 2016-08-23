@@ -1,0 +1,31 @@
+<root>
+    <!-- 客户端导出C# -->
+    <for_client>
+		<!--要导出的表-->
+		<for_struct_list>
+			<!-- vip表 -->
+			<elem name="Role" ignore_list="[]"/>
+			<elem name="Scene" ignore_list="[]"/>
+		</for_struct_list>
+	</for_client>
+	
+	<!--导出lua-->
+	<for_lua>
+		<!--要导出的lua-->
+		<for_struct_list>
+		    <!-- vip表 -->
+			<elem name="Role" ignore_list="[]"/>
+		</for_struct_list>
+	</for_lua>
+	
+	<!--服务端导出-->
+	<for_server>
+	    <!--要导出的服务端内容-->
+		<for_struct_list>
+		<!-- <elem name = ""	output_name = ""	pattern = "{{ {0} }},{1},{{ {2} }}..."	extend_list = "[]"	params_list = "[[],[],[]...]"/> -->
+		<elem name="Role" output_name="base_Role" pattern="{0}" extend_list="[]" params_list="[[id,model]]"/>
+		</for_struct_list>
+	
+	</for_server>
+</root>
+

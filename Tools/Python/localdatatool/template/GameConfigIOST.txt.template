@@ -1,0 +1,8 @@
+{# vim:se syntax=html.tornadotmpl: #}
+{% autoescape None %}
+
+{% for name, struct in sorted(for_lua_struct_list.items()) %}
+{% for item in struct_list[name] %}
+{{ struct[0] }}({{ ", ".join(define(name, key, item[key]) for key in struct[1]) }})
+{% end %}
+{% end %}

@@ -1,0 +1,14 @@
+
+VipConfig = {
+	[1] = {bsyn={1,2,3,4},id=1,ladderMaxTimes={["key1"]="111",["key2"]="222",["key3"]="333"},multiBattleExpand=0.3,packLimit=40,petLottery={"1","2","3","4"},scoreMaxTimes={1.1,2.2,3.3,4.4},show_lua="Sound(10059)",vipReward="Sound/BGM/Login/Main-Login.mp3"},
+	[2] = {bsyn={1,2,3,5},id=2,ladderMaxTimes={["key1"]="111",["key2"]="222",["key3"]="334"},multiBattleExpand=1.3,packLimit=40,petLottery={"1","2","3","5"},scoreMaxTimes={1.1,2.2,3.3,4.5},show_lua="Sound(10060)",vipReward="Sound/BGM/game-over/game-win.mp3"},
+	[3] = {bsyn={1,2,3,6},id=3,ladderMaxTimes={["key1"]="111",["key2"]="222",["key3"]="335"},multiBattleExpand=2.3,packLimit=42,petLottery={"1","2","3","6"},scoreMaxTimes={1.1,2.2,3.3,4.6},show_lua="Sound(10061)",vipReward="Sound/BGM/game-over/game-losed.mp3"},
+	[4] = {bsyn={1,2,3,7},id=4,ladderMaxTimes={["key1"]="111",["key2"]="222",["key3"]="336"},multiBattleExpand=3.3,packLimit=43,petLottery={"1","2","3","7"},scoreMaxTimes={1.1,2.2,3.3,4.7},show_lua="Sound(10062)",vipReward="Sound/BGM/Login/Login.mp3"},
+	[5] = {bsyn={1,2,3,8},id=5,ladderMaxTimes={["key1"]="111",["key2"]="222",["key3"]="337"},multiBattleExpand=4.3,packLimit=44,petLottery={"1","2","3","8"},scoreMaxTimes={1.1,2.2,3.3,4.8},show_lua="Sound(10063)",vipReward="Sound/BGM/main-city/qinchuan-2.mp3"},
+	[6] = {bsyn={1,2,3,9},id=6,ladderMaxTimes={["key1"]="111",["key2"]="222",["key3"]="338"},multiBattleExpand=5.3,packLimit=45,petLottery={"1","2","3","9"},scoreMaxTimes={1.1,2.2,3.3,4.9},show_lua="Sound(10064)",vipReward="Sound/BGM/changjing/fengweisizu-wumenglinggu.mp3"},
+	[7] = {bsyn={1,2,3,10},id=7,ladderMaxTimes={["key1"]="111",["key2"]="222",["key3"]="339"},multiBattleExpand=6.3,packLimit=46,petLottery={"1","2","3","10"},scoreMaxTimes={1.1,2.2,3.3,4.1},show_lua="Sound(10065)",vipReward="Sound/BGM/changjing/jiange-yunyinfantian.mp3"},
+	[8] = {bsyn={1,2,3,11},id=8,ladderMaxTimes={["key1"]="111",["key2"]="222",["key3"]="340"},multiBattleExpand=7.3,packLimit=47,petLottery={"1","2","3","11"},scoreMaxTimes={1.1,2.2,3.3,4.11},show_lua="Sound(10066)",vipReward="Sound/BGM/changjing/jiange-yunyinfantian.mp3"},
+	[9] = {bsyn={1,2,3,12},id=9,ladderMaxTimes={["key1"]="111",["key2"]="222",["key3"]="341"},multiBattleExpand=8.3,packLimit=48,petLottery={"1","2","3","12"},scoreMaxTimes={1.1,2.2,3.3,4.12},show_lua="Sound(10067)",vipReward="Sound/BGM/changjing/jiange-yunyinfantian.mp3"},
+	[10] = {bsyn={1,2,3,13},id=10,ladderMaxTimes={["key1"]="111",["key2"]="222",["key3"]="342"},multiBattleExpand=9.3,packLimit=49,petLottery={"1","2","3","13"},scoreMaxTimes={1.1,2.2,3.3,4.13},show_lua="Sound(10068)",vipReward="Sound/BGM/changjing/jiange-yunyinfantian.mp3"},
+	[11] = {bsyn={1,2,3,14},id=11,ladderMaxTimes={["key1"]="111",["key2"]="222",["key3"]="343"},multiBattleExpand=10.3,packLimit=50,petLottery={"1","2","3","14"},scoreMaxTimes={1.1,2.2,3.3,4.14},show_lua="Sound(10069)",vipReward="Sound/BGM/changjing/jiange-yunyinfantian.mp3"},
+},

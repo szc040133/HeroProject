@@ -1,0 +1,47 @@
+﻿
+{% set protobuffs = root["protobuffs"] %}
+ProtoNameIds = {
+{% for i in protobuffs %}
+    ["{{ i["message"] }}"] = {{ i["id"] }},
+{% end %}
+}
+
+ProtoIdNames = {}
+for key, value in pairs(ProtoNameIds) do
+    ProtoIdNames[value] = key
+end
+
+ProtoEncryptList = {
+	{% for i in protobuffs %}
+		{% if i["is_crypto"] == 1 %}
+		["{{ i["message"] }}"] = {{ i["id"] }},
+		{% end %}
+    {% end %}
+}
+
+ProtoCompressList = {
+	{% for i in protobuffs %}
+		{% if i["is_compress"] == 1 %}
+		["{{ i["message"] }}"] = {{ i["id"] }},
+		{% end %}
+    {% end %}
+}
+
+--20160325谭志恒 加密协议的id扔给c#
+for key, value in pairs(ProtoEncryptList) do
+	PB_CS(key,value)
+end
+--新增加的 加密协议的id扔给c#
+for key, value in pairs(ProtoCompressList) do
+	Com_CS(key,value)
+end
+
+ProtoFiles = {
+	"unit",
+    {% for j in sorted(protoFileName)%}
+	{% if j == "unit" %}
+	{% continue %}
+	{% end %}
+	"{{ j }}",
+	{% end %}
+}

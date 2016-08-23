@@ -1,0 +1,23 @@
+{
+    "Role": {
+        "antiBroken": "float",
+        "attackTime": "float",
+        "defense": "float",
+        "dodge": "float",
+        "hit": "float",
+        "hp": "int",
+        "id": "int",
+        "model": "int",
+        "name": "str",
+        "shootDistane": "float",
+        "skill": "list_str",
+        "speed": "float",
+        "start": "int"
+    },
+    "Scene": {
+        "arrange": "int",
+        "id": "int",
+        "path": "str",
+        "road": "int"
+    }
+}
