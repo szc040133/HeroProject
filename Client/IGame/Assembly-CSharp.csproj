@@ -45,9 +45,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CameraAdjust.cs" />
      <Compile Include="Assets\Script\Camera\CameraManager.cs" />
      <Compile Include="Assets\Script\Camera\WorldCamera.cs" />
-     <Compile Include="Assets\Script\CameraAdjust.cs" />
      <Compile Include="Assets\Script\DownLoad\ABDLManager.cs" />
      <Compile Include="Assets\Script\Manager\EventDispatcher.cs" />
      <Compile Include="Assets\Script\Manager\PoolManager.cs" />
