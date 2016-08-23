@@ -4,6 +4,7 @@ using System.Collections;
 public class SceneBase
 {
     protected int _id;
+    private int _grantId;
 
     protected CameraManager _cameraManager;
 
@@ -40,10 +41,13 @@ public class SceneBase
     }
 
     public int Id { get { return _id; } }
-}
 
-public enum ArrangeType
-{
-    Horizontal = 1,
-    Vertical = 2,
+    public int GrantId
+    {
+        get
+        {
+            _grantId++;
+            return _grantId;
+        }
+    }
 }

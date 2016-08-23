@@ -46,6 +46,12 @@ public class NormScene : SceneBase
         _objects.Remove(obj);
     }
 
+    public void CreateObject()
+    {
+        var obj = new NormObject(GrantId);
+        //obj.Infuse
+    }
+
     public override void Destroy()
     {
         foreach(var obj in _objects)

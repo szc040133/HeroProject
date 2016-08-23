@@ -5,6 +5,10 @@ public class NormObject : ObjectBase
 {
     private IAnimation _animation;
     private NormScene _scene;
+    private int _road;
+    private float _position;
+    private Camp _camp;
+
     public NormObject(int id)
         : base(id)
     {
@@ -14,7 +18,9 @@ public class NormObject : ObjectBase
 
     public virtual void Infuse(NormVO vo)
     {
-
+        _road = vo.Road;
+        _position = vo.Position;
+        _camp = vo.Camp;
     }
 
     public override void Start()
@@ -34,9 +40,15 @@ public class NormObject : ObjectBase
 
 public struct NormVO
 {
+    public int RoleId;
     public int Road;
-    public NormVO(int road)
+    public float Position;
+    public Camp Camp;
+    public NormVO(int roleId, int road, float position, Camp camp)
     {
+        RoleId = roleId;
         Road = road;
+        Position = position;
+        Camp = camp;
     }
 }

@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{6717FDBF-2416-D682-3ACF-92F531E94DE2}") = "IGame", "Assembly-CSharp-firstpass.csproj", "{ED39827A-06EA-FD47-222C-B24926B2C813}"
+EndProject
+Project("{6717FDBF-2416-D682-3ACF-92F531E94DE2}") = "IGame", "Assembly-CSharp.csproj", "{BC21E916-7E1D-B464-9EA9-4ADE1CDEA1A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED39827A-06EA-FD47-222C-B24926B2C813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED39827A-06EA-FD47-222C-B24926B2C813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED39827A-06EA-FD47-222C-B24926B2C813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED39827A-06EA-FD47-222C-B24926B2C813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC21E916-7E1D-B464-9EA9-4ADE1CDEA1A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC21E916-7E1D-B464-9EA9-4ADE1CDEA1A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC21E916-7E1D-B464-9EA9-4ADE1CDEA1A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC21E916-7E1D-B464-9EA9-4ADE1CDEA1A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
