@@ -29,7 +29,5 @@ obj/
 .Trashes
 ehthumbs.db
 Thumbs.db
-Tools/Python/address.txt
-Tools/Python/localdatatool/tempfile/record/
-Tools/Python/localdatatool/output/
-Tools/Python/localdatatool/tempfile/tmp/
+Tools/Python/localdatatool/tempfile/record/types_recorder
+F:/HeroProject/Tools/Python/address.txt
